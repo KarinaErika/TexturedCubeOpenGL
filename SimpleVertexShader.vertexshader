@@ -1,0 +1,32 @@
+#version 330 core
+
+// Insere dados de vértices, diferentes para todas as execuções desse shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+
+// Observe que o "1" aqui é igual ao "1" em glVertexAttribPointer
+// layout(location = 1) in vec3 vertexColor;
+
+layout(location = 1) in vec2 vertexUV;
+
+// Dados de saída ; será interpolado para cada fragmento.
+out vec2 UV;
+
+// Valores interpolados dos shaders de vértice
+//out vec3 fragmentColor;
+// Valores que permanecem constantes para toda a malha.
+uniform mat4 MVP;
+
+void main(){	
+
+	// Posição de saída do vértice, no espaço do clipe:  MVP * position
+	gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
+
+	// A cor de cada vértice será interpolada 
+	// para produzir a cor de cada fragmento
+	//fragmentColor = vertexColor;
+
+	// UV do vértice. Nenhum espaço especial para este.
+	UV = vertexUV;
+}
+
+
