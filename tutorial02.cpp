@@ -79,26 +79,91 @@ int main(void)
 	//Somente durante a inicialização
 	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
 
-	//Matriz de projeção: Campo de visão de 45 °, relação 4: 3, faixa de exibição: 0,1 unidade <-> 100 unidades
-	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+	
+	////Matriz de projeção: Campo de visão de 45 °, relação 4: 3, faixa de exibição: 0,1 unidade <-> 100 unidades
+	//glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+	
 
-
+	
 	//Ou, para uma câmera ortogonal:
 	//glm::mat4 Projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.0f, 100.0f); //em coordenadas mundiais
 
-	// Camera matrix
-	glm::mat4 View = glm::lookAt(
-		glm::vec3(4, 3, 3), // A câmera está em (4,3,3), no World Space
-		glm::vec3(0, 0, 0), // e olha a origem
-		glm::vec3(0, 1, 0)  // Head is up (definido como 0, -1,0 para ver de cabeça para baixo)
-	);
 
+	////Tentando fazer a obliqua
+	//glm::mat4 oblique = glm::mat4(1.0f);
+
+	//oblique[0][2] = -1 * (glm::cos(3.14 / 4));
+
+	//glm::mat4 Projection = oblique * ortho(-3.0f, 3.0f, -3.0f, 3.0f, -0.1f, 100.0f);
+
+	//Fim tentando fazer a obliqua
+
+
+	
+		////Tentando fazer a obliqua
+		//glm::mat4 oblique = glm::mat4(1.0f);
+
+		//oblique[0][2] = -1 * (glm::cos(3.14 / 4));
+
+		//glm::mat4 Projection = oblique * ortho(-3.0f, 3.0f, -3.0f, 3.0f, -0.1f, 100.0f);
+
+		//// Camera matrix
+		//glm::mat4 View = glm::lookAt(
+		//	glm::vec3(10, 0, 3), // A câmera está em (4,3,3), no World Space
+		//	glm::vec3(0, 0, 0), // e olha a origem
+		//	glm::vec3(0, 1, 0)  // Head is up (definido como 0, -1,0 para ver de cabeça para baixo)
+		//);
+
+
+
+		//// Matriz do modelo: uma matriz de identidade (o modelo estará na origem)
+		//glm::mat4 Model = glm::mat4(1.0f);
+
+		////Nosso ModelViewProjection: multiplicação de nossas 3 matrizes
+		//glm::mat4 mvp = Projection * View * Model; //A multiplicação de matrizes é o contrário
+	////Fim Tentando fazer a obliqua
+
+	 
+		//Matriz de projeção: Campo de visão de 45 °, relação 4: 3, faixa de exibição: 0,1 unidade <-> 100 unidades
+		glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+		// Camera matrix
+		glm::mat4 View = glm::lookAt(
+			glm::vec3(4, 3, 3), // A câmera está em (4,3,3), no World Space
+			glm::vec3(0, 0, 0), // e olha a origem
+			glm::vec3(0, 1, 0)  // Head is up (definido como 0, -1,0 para ver de cabeça para baixo)
+		);
+
+		
+
+	
 
 	// Matriz do modelo: uma matriz de identidade (o modelo estará na origem)
 	glm::mat4 Model = glm::mat4(1.0f);
 
 	//Nosso ModelViewProjection: multiplicação de nossas 3 matrizes
 	glm::mat4 mvp = Projection * View * Model; //A multiplicação de matrizes é o contrário
+	
+
+	//// Camera matrix
+	//glm::mat4 View = glm::lookAt(
+	//	glm::vec3(4, 3, 3), // A câmera está em (4,3,3), no World Space
+	//	glm::vec3(0, 0, 0), // e olha a origem
+	//	glm::vec3(0, 1, 0)  // Head is up (definido como 0, -1,0 para ver de cabeça para baixo)
+	//);
+	// Camera matrix pra obliqua
+	//glm::mat4 View = glm::lookAt(
+	//	glm::vec3(10, 0, 3), // A câmera está em (4,3,3), no World Space
+	//	glm::vec3(0, 0, 0), // e olha a origem
+	//	glm::vec3(0, 1, 0)  // Head is up (definido como 0, -1,0 para ver de cabeça para baixo)
+	//);
+
+	//DEscomentar
+	//// Matriz do modelo: uma matriz de identidade (o modelo estará na origem)
+	//glm::mat4 Model = glm::mat4(1.0f);
+
+	////Nosso ModelViewProjection: multiplicação de nossas 3 matrizes
+	//glm::mat4 mvp = Projection * View * Model; //A multiplicação de matrizes é o contrário
+	//Descomentar
 
 	//Carrega a textura usando dois métodos
 	//GLuint Texture = loadBMP_custom("C:/ogl-master  build/tutorial02_red_triangle.dir/Debug/uvtemplate.bmp");
